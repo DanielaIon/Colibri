@@ -33,6 +33,10 @@ const updateRoleById = async (id, role) => {
     await query('UPDATE employee SET role = $1 WHERE id = $2', [role, id]);
 };
 
+const updateRoleByUsername = async (username) => {
+    await query('UPDATE employee SET role = $1 WHERE username = $2', ["user", username]);
+};
+
 
 const authenticate = async (email, password) => {
     let result = await query(`SELECT id, password, role FROM employee u WHERE u.email = $1`, [email]);
@@ -42,11 +46,15 @@ const authenticate = async (email, password) => {
     }
 
     if (result.length === 0) {
-        throw new ServerError(`Utilizatorul cu emailul ${email} nu exista in sistem!`, 400);
+        throw new ServerError(`Utilizatorul  ${email} nu exista in sistem!`, 400);
     }
     
+    if (result[0].role === "unknown") {
+        throw new ServerError(`Contul nu este activat`, 400);
+    }
+
     const user = result[0];
-    
+
     // pas 1: verifica daca parola este buna (hint: functia compare)
     let checkPasswd = await compare(password, user.password);
 
@@ -78,6 +86,7 @@ module.exports = {
     updateRoleById,
     authenticate,
     getEmployees,
+    updateRoleByUsername,
     getEmployeeById,
     deleteById
 }

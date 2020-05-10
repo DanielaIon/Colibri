@@ -51,16 +51,21 @@ router.put('/:id', authorizeAndExtractTokenAdminSuport, async (req, res, next) =
     const {
         id
     } = req.params;
-    const {
-        answer
-    } = req.body;
+    const answer = req.body.answer
+    const emailemployee = req.body.emailemployee
+    const question = req.body.question
     try {
+        console.log(answer)
+        console.log(emailemployee)
         await QuestionService.updateById(parseInt(id), answer);
+
+        let text = "<p>You asked:  " + question + "<br/>"+ "We answer:  " + answer +"</p>"
+
         sendYourMail({
             from:'colibri.mailservice@gmail.com',
-            to:'colibri.user01@gmail.com',
+            to:emailemployee,
             subject:'Question Answered',
-            text:'Colibri said:'+answer
+            html:text
 
         });
         res.status(204).end();

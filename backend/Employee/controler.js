@@ -13,7 +13,7 @@ const {
 } = require('../utils');
 
 const router = express.Router();
-
+const {sendYourMail} =  require('../security/email.js');
 
 router.post('/register', async (req, res, next) => {
     const {
@@ -65,7 +65,17 @@ router.post('/register', async (req, res, next) => {
                                     username,
                                     department ,
                                     position ,
-                                    role);
+                                    "unknown");
+        
+        let link = "http://localhost:3000/api/v1/employees/register/" + username
+        let content = "<a href="+link+">Click here to finnish register</a>"
+        sendYourMail({
+            from:'colibri.mailservice@gmail.com',
+            to:email,
+            subject:'Register',
+            html:content
+
+        });
         res.status(201).end();
     } catch (err) {
         // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
@@ -73,10 +83,21 @@ router.post('/register', async (req, res, next) => {
     }
 });
 
+// ruta pt inregistrare
+router.get('/register/:username', async (req, res, next) => {
+    const {
+        username
+    } = req.params;
+    res.json(await UsersService.updateRoleByUsername(username));
+});
+
+
 // ruta pt verificarea datelor
 router.get('/', authorizeAndExtractTokenAdminSuport, async (req, res, next) => {
     res.json(await UsersService.getEmployees());
 });
+
+
 
 
 router.get('/:id', authorizeAndExtractToken, async (req, res, next) => {

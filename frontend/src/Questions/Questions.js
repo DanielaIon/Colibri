@@ -14,7 +14,7 @@ class Questions extends Component {
     this.state = {
         questions:[], 
         question:{
-          email: "",
+          emailemployee: "",
           answer: "",
           question : "",
           visible : ""
@@ -93,11 +93,11 @@ updateAnswer= (event)=>{
       });
   }
 
-updateQuestion(id) {
+updateQuestion(question) {
   const config = {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
-    axios.put(`http://localhost:3000/api/v1/questions/${id}`,this.state.question,config)
+    axios.put(`http://localhost:3000/api/v1/questions/${question.id}`,{answer:this.state.question.answer, emailemployee:question.emailemployee, question:question.question},config)
       .then(res => {
           console.log("Element updatat");
           this.getQuestions();
@@ -184,7 +184,7 @@ componentDidMount() {
                             if (this.state.user.role ==='admin' || this.state.user.role ==='suport' ){
                                 number = 3;
                                 mybuttons = ( <ButtonGroup toggle>
-                                                    <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick ={(ev)=> {ev.preventDefault();this.updateQuestion(question.id)}}>
+                                                    <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick ={(ev)=> {ev.preventDefault();this.updateQuestion(question)}}>
                                                         Update Answer
                                                     </ToggleButton>
                                                     <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick={()=> this.deleteQuestion(question.id)}>
