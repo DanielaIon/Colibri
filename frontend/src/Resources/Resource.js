@@ -51,12 +51,9 @@ add = (event) => {
   axios.post(`http://localhost:3000/api/v1/resources`,this.state.resource,config)
   .then(res => {
     this.getResources()
-    // this.props.history.push('/mybookings');
     }).catch(err=> {
-      console.log(err);
-    console.log("ooops eroare");
-
     });
+
 }
 
   updatName= (event)=>{

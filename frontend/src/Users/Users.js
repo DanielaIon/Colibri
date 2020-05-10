@@ -158,16 +158,6 @@ class User extends Component {
                             </td>
                             )
                         }
-                        if ((this.state.user.role ==='admin') && (employee.role === 'admin')){
-                          mybuttons = (<td>
-                              <ButtonGroup toggle>
-                                  <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick={()=> this.deleteUser(employee.id)}>
-                                      Delete
-                                  </ToggleButton>
-                              </ButtonGroup>
-                          </td>
-                          )
-                      }
                         return (
                             <tr>
                                 <td>{employee.id}</td>
