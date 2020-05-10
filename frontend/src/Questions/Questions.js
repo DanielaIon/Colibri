@@ -76,7 +76,6 @@ addQuestionSubmit(event) {
 updateAnswer= (event)=>{
   let question = {...this.state.question}
   question.answer = event.target.value
-  console.log(question);
   this.setState({question})
 }
 
@@ -185,7 +184,7 @@ componentDidMount() {
                             if (this.state.user.role ==='admin' || this.state.user.role ==='suport' ){
                                 number = 3;
                                 mybuttons = ( <ButtonGroup toggle>
-                                                    <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick={()=> this.updateQuestion(question.id)}>
+                                                    <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick ={(ev)=> {ev.preventDefault();this.updateQuestion(question.id)}}>
                                                         Update Answer
                                                     </ToggleButton>
                                                     <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick={()=> this.deleteQuestion(question.id)}>

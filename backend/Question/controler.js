@@ -5,7 +5,7 @@ const {
     authorizeAndExtractTokenAdmin
 } = require('../security/Jwt/index.js');
 
-
+const {sendYourMail} =  require('../security/email.js');
 const express = require('express');
 
 const QuestionService = require('./services.js');
@@ -56,6 +56,13 @@ router.put('/:id', authorizeAndExtractTokenAdminSuport, async (req, res, next) =
     } = req.body;
     try {
         await QuestionService.updateById(parseInt(id), answer);
+        sendYourMail({
+            from:'colibri.mailservice@gmail.com',
+            to:'colibri.user01@gmail.com',
+            subject:'Question Answered',
+            text:'Colibri said:'+answer
+
+        });
         res.status(204).end();
     } catch (err) {
         // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
