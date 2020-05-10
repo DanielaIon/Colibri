@@ -13,6 +13,7 @@ class Auth extends Component {
         firstName:"",
         lastName:"",
         email:"",
+        username:"",
         department:"",
         position:"",
         role:"user"
@@ -84,6 +85,11 @@ class Auth extends Component {
     myuser.email = event.target.value
     this.setState({user:myuser})
   }
+  updateUsername = (event)=> {
+    let myuser = {...this.state.user}
+    myuser.username = event.target.value
+    this.setState({user:myuser})
+  }
   updateDepartment = (event)=> {
     let myuser = {...this.state.user}
     myuser.department = event.target.value
@@ -116,6 +122,10 @@ class Auth extends Component {
             <div className="form-group">
               <label for="inputEmail">Email</label>
               <input type="email" className="form-control" id="inputEmail" placeholder="gpopescu@mail.com" onChange={this.updateEmail}></input>
+            </div>
+            <div className="form-group">
+              <label for="inputUsername">Username</label>
+              <input type="text" className="form-control" id="inputUsername" placeholder="gpopescu" onChange={this.updateUsername}></input>
             </div>
             <div className="form-group">
               <label for="inputPassword">Password</label>
@@ -155,8 +165,8 @@ class Auth extends Component {
       form = (
         <form style={{ height:'600px'}} onSubmit={this.loginSubmit}>
             <div className="form-group">
-              <label for="inputEmail">Email</label>
-              <input type="email" className="form-control" id="inputEmail" placeholder="gpopescu@mail.com" onChange={this.updateEmail}></input>
+              <label for="inputEmail">Email or Username</label>
+              <input type="text" className="form-control" id="inputEmail" placeholder="gpopescu@mail.com" onChange={this.updateEmail}></input>
             </div>
             <div className="form-group">
               <label for="inputPassword">Password</label>

@@ -3,6 +3,7 @@
         "firstName":"Daniela",
         "lastName":"Ion",
         "email" :"admin@mail.com",
+        "username" :"admin@mail.com",
         "department":"it",
         "position":"administrator",
         "role" :"admin"

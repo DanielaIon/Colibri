@@ -21,6 +21,7 @@ router.post('/register', async (req, res, next) => {
         firstName ,
         lastName ,
         email ,
+        username ,
         department ,
         position ,
         role 
@@ -41,6 +42,10 @@ router.post('/register', async (req, res, next) => {
                 value: email,
                 type: 'ascii'
             },
+            username: {
+                value: username,
+                type: 'ascii'
+            },
             password: {
                 value: password,
                 type: 'ascii'
@@ -57,6 +62,7 @@ router.post('/register', async (req, res, next) => {
                                     firstName ,
                                     lastName ,
                                     email ,
+                                    username,
                                     department ,
                                     position ,
                                     role);

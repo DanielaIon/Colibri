@@ -19,13 +19,14 @@ const register = async (password,
                     firstName ,
                     lastName ,
                     email ,
+                    username ,
                     department ,
                     position ,
                     role ) => {
     //cripteaza parola
     let myPassword = await hash(password);
 
-    await query('INSERT INTO employee (password, firstName, lastName, email, department, position, role) VALUES ($1, $2, $3, $4, $5, $6, $7)', [myPassword, firstName, lastName, email, department, position, role]);
+    await query('INSERT INTO employee (password, firstName, lastName, email, username, department, position, role) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [myPassword, firstName, lastName,  email, username, department, position, role]);
 };
 
 const updateRoleById = async (id, role) => {
@@ -34,12 +35,16 @@ const updateRoleById = async (id, role) => {
 
 
 const authenticate = async (email, password) => {
-    const result = await query(`SELECT id, password, role FROM employee u 
-                                WHERE u.email = $1`, [email]);
+    let result = await query(`SELECT id, password, role FROM employee u WHERE u.email = $1`, [email]);
+
+    if (result.length == 0) {
+        result = await query(`SELECT id, password, role FROM employee u WHERE u.username = $1`, [email]);
+    }
 
     if (result.length === 0) {
         throw new ServerError(`Utilizatorul cu emailul ${email} nu exista in sistem!`, 400);
     }
+    
     const user = result[0];
     
     // pas 1: verifica daca parola este buna (hint: functia compare)

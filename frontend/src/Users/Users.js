@@ -112,6 +112,7 @@ class User extends Component {
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Username</th>
                     <th>Departament</th>
                     <th>Position</th>
                     <th>Role</th>
@@ -147,7 +148,7 @@ class User extends Component {
                             </td>
                             )
                         }
-                        if (this.state.user.role ==='suport' && employee.role === 'user'){
+                        if (this.state.user.role ==='suport'&& employee.role === 'user'){
                             mybuttons = (<td>
                                 <ButtonGroup toggle>
                                     <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick={()=> this.deleteUser(employee.id)}>
@@ -157,11 +158,22 @@ class User extends Component {
                             </td>
                             )
                         }
+                        if ((this.state.user.role ==='admin') && (employee.role === 'admin')){
+                          mybuttons = (<td>
+                              <ButtonGroup toggle>
+                                  <ToggleButton variant="secondary" type="radio" name="radio" value="3" onClick={()=> this.deleteUser(employee.id)}>
+                                      Delete
+                                  </ToggleButton>
+                              </ButtonGroup>
+                          </td>
+                          )
+                      }
                         return (
                             <tr>
                                 <td>{employee.id}</td>
                                 <td>{employee.firstname} {employee.lastname}</td>
                                 <td>{employee.email}</td>
+                                <td>{employee.username}</td>
                                 <td>{employee.department}</td>
                                 <td>{employee.position}</td>
                                 <td>{employee.role}</td>

@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS  employee (
     firstName varchar(255),
     lastName varchar(255),
     email varchar(255) NOT NULL UNIQUE,
+    username varchar(255) NOT NULL UNIQUE,
     department varchar(255),
     position varchar(255),
     role varchar(255)
