@@ -1,0 +1,29 @@
+{
+       "password":"admin",
+        "firstName":"Daniela",
+        "lastName":"Ion",
+        "email" :"admin@mail.com",
+        "department":"it",
+        "position":"administrator",
+        "role" :"admin"
+}
+
+{
+       "password":"popescu",
+        "firstName":"Ionel",
+        "lastName":"Popescu",
+        "email" :"ipopescu@mail.com",
+        "department":"it",
+        "position":"junior dev",
+        "role" :"user"
+}
+
+{
+	"name":"Sala13",
+	"details":"Parter, aripa S-V"
+}
+
+{
+	"name":"Sala 21",
+	"details":"Parter, aripa N-V"
+}

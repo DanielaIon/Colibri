@@ -1,0 +1,50 @@
+// .navTitle{
+//   color: black;
+//   font-family: 'Fredericka the Great';
+//   font-size: 30px;
+//   text-align: center;
+// }
+
+// .navText{
+//   color: black;
+//   font-family: 'Josefin Slab';
+//   font-size: 20px;
+//   text-align: center;
+// }
+
+.navBody{
+  // background-color: #010131;
+  width: 80%;
+}
+
+#newnavigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+
+  
+  li {
+    
+    float: left;
+    font-family: 'Josefin Slab';
+    font-size: 20px;
+    a {
+      display: inline;
+      color: white;
+      margin: 0;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+    a.active {
+      background-color: lightcyan;
+      color: black;
+    }
+
+    a:hover:not(.active) {
+      background-color: #1abc9c;
+      color: white;
+    }
+  }
+}
