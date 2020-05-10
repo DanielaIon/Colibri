@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS  resource (
 
 CREATE TABLE IF NOT EXISTS  question(
     id serial PRIMARY KEY,
+    emailemployee TEXT,
     question TEXT,
     answer TEXT,
     visible  varchar(255)

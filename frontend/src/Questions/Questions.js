@@ -14,8 +14,9 @@ class Questions extends Component {
     this.state = {
         questions:[], 
         question:{
+          email: "",
           answer: "",
-          question : "bfdsdda",
+          question : "",
           visible : ""
         },
         user:{
@@ -47,7 +48,8 @@ add = (event) => {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
 
-  axios.post(`http://localhost:3000/api/v1/questions`,this.state.question,config)
+  // console.log(this.state.user.email+"---"+this.state.question)
+  axios.post(`http://localhost:3000/api/v1/questions`,this.state.question, config)
   .then(res => {
     this.getQuestions()
     // this.props.history.push('/mybookings');
@@ -61,7 +63,7 @@ add = (event) => {
 updateQuestionField= (event)=>{
     let myquestion = {...this.state.question}
     myquestion.question = event.target.value
-    console.log(myquestion);
+    myquestion.email = this.state.user.email
     this.setState({question:myquestion})
   }
 
@@ -201,6 +203,7 @@ componentDidMount() {
                                               </form>);
                                 return (
                                   <tr>
+                                      <td>{question.emailemployee}</td>
                                       <td>{question.question}</td>
                                       <td>{question.answer}</td>
                                       <td>{content}</td>

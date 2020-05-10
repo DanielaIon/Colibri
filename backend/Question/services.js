@@ -2,8 +2,8 @@ const {
     query
 } = require('../data');
 
-const add = async (question) => {
-    await query('INSERT INTO question (question,answer,visible) VALUES ($1,$2,$3)', [question,"-","false"]);
+const add = async (emailemployee, question) => {
+    await query('INSERT INTO question (emailemployee,question,answer,visible) VALUES ($1,$2,$3,$4)', [emailemployee,question,"-","false"]);
 };
 
 const getAll = async () => {

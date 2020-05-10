@@ -14,12 +14,11 @@ const router = express.Router();
 
 //posteaza o resursa
 router.post('/', authorizeAndExtractToken, async (req, res, next) => {
-    const {
-        question
-    } = req.body;
-
+    const emailemployee = req.body.email
+    const question = req.body.question
+    console.log(emailemployee+" --- "+question)
     try {
-        await QuestionService.add(question);
+        await QuestionService.add(emailemployee,question);
         res.status(201).end();
     } catch (err) {
         next(err);
