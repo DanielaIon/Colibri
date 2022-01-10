@@ -8,6 +8,8 @@ const {
 const express = require('express');
 
 const BookingService = require('./services.js');
+const RabbitMQ = require('../rabbitMQ/index.js');
+const EmployeeService = require('../Employee/services.js');
 
 const router = express.Router();
 
@@ -24,6 +26,11 @@ router.post('/', authorizeAndExtractToken, async (req, res, next) => {
 
     try {
         await BookingService.add(idResource, idEmployee, day, startHour, endHour, details);
+        //publish
+        const employeeDetails = await EmployeeService.getEmployeeById(idEmployee);
+        if(employeeDetails && employeeDetails.email ){
+            RabbitMQ.publish("", "peopleToBeNotified", new Buffer( employeeDetails.email));
+        }
         res.status(201).end();
     } catch (err) {
         next(err);
