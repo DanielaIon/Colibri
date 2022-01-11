@@ -148,6 +148,7 @@ componentDidMount() {
                         </td>)
     if (this.state.user.role ==='admin' || this.state.user.role ==='suport' ){
       tableHeader = (<tr>
+                        <th>Email</th>
                         <th>Question</th>
                         <th>Answer</th>
                         <th>Write Answer</th>

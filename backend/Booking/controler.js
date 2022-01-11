@@ -8,7 +8,7 @@ const {
 const express = require('express');
 
 const BookingService = require('./services.js');
-const RabbitMQ = require('../rabbitMQ/index.js');
+const RabbitMQ = require('../../rabbitmq/index.js');
 const EmployeeService = require('../Employee/services.js');
 
 const router = express.Router();

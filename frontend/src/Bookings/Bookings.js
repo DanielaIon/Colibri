@@ -87,7 +87,7 @@ class Bookings extends Component {
 
   render() {
     return (
-        <div style={{width:'80%'}}>>
+        <div style={{width:'80%'}}>
           <br/>
           <br/>
             <table><tbody>

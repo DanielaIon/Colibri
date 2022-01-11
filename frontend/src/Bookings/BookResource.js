@@ -4,7 +4,6 @@ import ToggleButton from 'react-bootstrap/ToggleButton'
 import React, { Component } from 'react';
 import './BookResource.scss'
 const axios = require("axios");
-const os = require("os");
 const jwt_decode = require('jwt-decode');
 const moment = require('moment');
 
@@ -122,22 +121,22 @@ class BookResource extends Component {
   postBookings() {
 
     if (this.state.resource.id == undefined){
-      alert(`You haven't selected a resource!`+os.EOL+` Please fill the field! `);
+      alert(`You haven't selected a resource!`+"\r\n"+` Please fill the field! `);
     }
     else if (this.state.startHour == "") {
-      alert(`You haven't selected a starting hour!`+os.EOL+` Please fill the field! `);
+      alert(`You haven't selected a starting hour!`+"\r\n"+` Please fill the field! `);
     }
     else if (this.state.endHour == "") {
-      alert(`You haven't selected an ending hour!`+os.EOL+` Please fill the field! `);
+      alert(`You haven't selected an ending hour!`+"\r\n"+` Please fill the field! `);
     }
     else if (this.state.startHour>this.state.endHour){
-      alert(`Starting Hour is greater than Ending hour!`+os.EOL+ `Please enter another hours !`);
+      alert(`Starting Hour is greater than Ending hour!`+"\r\n"+ `Please enter another hours !`);
     }
     else if (this.state.details == "") {
-      alert(`You haven't written any details!`+ os.EOL +` Please specify the purpose of that booking! `);
+      alert(`You haven't written any details!`+ "\r\n" +` Please specify the purpose of that booking! `);
     }
     else if (this.checkBooking(this.state.resource.id, this.state.day, this.state.startHour, this.state.endHour ) === false) {
-      alert(`There is already a booking in that interval!`+os.EOL+`Please choose another interval or another resource!`);
+      alert(`There is already a booking in that interval!`+"\r\n"+`Please choose another interval or another resource!`);
     }
     else {
       let booking = {
@@ -220,10 +219,10 @@ class BookResource extends Component {
                           min={moment().add(-1, 'days').format("YYYY-MM-DD")} max={moment().add(14, 'days').format("YYYY-MM-DD")} onChange={this.updateDay} required/>
                 </td>
                 <td>
-                <input type="datetime-local" id="startHour" name="startHour" onChange={this.updateStartHour} required/>
+                <input type="time" id="startHour" name="startHour" min="09:00" max="18:00" required onChange={this.updateStartHour} required/>
                 </td>
                 <td>
-                <input type="datetime-local" id="endHour" name="endHour"  onChange={this.updateEndHour} required/>
+                <input type="time" id="endHour" name="endHour" onChange={this.updateEndHour} required/>
                 </td>
                 <td>
                   <form>

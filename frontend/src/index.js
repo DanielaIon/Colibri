@@ -6,7 +6,7 @@ import Header from './Header';
 import Nav from './Nav';
 import {
   BrowserRouter,
-  Switch,
+  Routes,
   Route
 } from "react-router-dom";
 
@@ -19,7 +19,6 @@ import Bookings from './Bookings/Bookings';
 import BookResource from './Bookings/BookResource';
 import MyBookings from './Bookings/MyBookings';
 
-
 // import Helmet from 'react-helmet';
 
 ReactDOM.render(
@@ -29,44 +28,65 @@ ReactDOM.render(
         <br/><br/>
 
         <BrowserRouter basename="/">
-          <Switch>
-            <Route path="/bookresource" >
+          <Routes>
+            <Route path="/bookresource" element={
+              <React.Fragment>
+                <Nav/>  
+                <Header/>
+                <BookResource/>
+              </React.Fragment>
+            }/>
+              
+            <Route path="/mybookings" element={
+              <React.Fragment>
+                <Nav/>  
+                <Header/>
+                <MyBookings/>
+              </React.Fragment>
+            }/>
+              
+            <Route path="/resources" element={
+              <React.Fragment>
               <Nav/>  
-              <Header/>
-              <BookResource/>
-            </Route>
-            <Route path="/mybookings" >
-              <Nav/>  
-              <Header/>
-              <MyBookings/>
-            </Route>
-            <Route path="/resources">
-              <Nav/>
               <Header/>
               <Resource/>
-            </Route>
-            <Route path="/inforesources">
-              <Nav/>
+            </React.Fragment>
+            }/>
+              
+            <Route path="/inforesources" element={
+              <React.Fragment>
+              <Nav/>  
               <Header/>
               <ResourceInfo/>
-            </Route>
-            <Route path="/users" >
-              <Nav/>
+            </React.Fragment>
+            }/>
+              
+            <Route path="/users" element={
+              <React.Fragment>
+              <Nav/>  
               <Header/>
               <Users/>
-            </Route>
-            <Route path="/bookings" >
-              <Nav/>
+            </React.Fragment>
+            }/>
+              
+            <Route path="/bookings" element={
+              <React.Fragment>
+              <Nav/>  
               <Header/>
               <Bookings/>
-            </Route>
-            <Route path="/faq" >
-              <Nav/>
+            </React.Fragment>
+            }/>
+              
+            <Route path="/faq" element={
+              <React.Fragment>
+              <Nav/>  
               <Header/>
               <Questions/>
-            </Route>
-            <Route path="/" component={Auth}/>
-          </Switch>
+            </React.Fragment>
+            }/>
+            
+            <Route exact path="/" element={<Auth/>}/>
+          </Routes>
         </BrowserRouter>
       </center>
   </React.StrictMode>,

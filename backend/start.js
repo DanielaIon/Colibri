@@ -5,7 +5,7 @@ const helmet = require('helmet'); //middleware de securitate
 const cors = require('cors'); 
 
 const routes = require('./routes');
-const RabbitMQ = require('../rabbitMQ/index.js');
+const RabbitMQ = require('../rabbitmq/index.js');
 
 const app = express();
 

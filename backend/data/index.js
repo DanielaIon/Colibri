@@ -1,6 +1,8 @@
 const { Pool } = require('pg');
 
-const pool = new Pool();
+const pool = new Pool({
+  log: (msg) => console.log(msg)
+});
 
 const query = async (text, params) => {
   const start = Date.now();

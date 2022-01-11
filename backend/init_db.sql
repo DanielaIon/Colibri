@@ -33,3 +33,12 @@ CREATE TABLE IF NOT EXISTS  booking(
     endHour TIME,
     details TEXT 
 );
+
+INSERT INTO employee(id, password, firstName, lastName, email, username, department, position, role)
+VALUES (1, '$2a$05$Ad7uHnUx5D4TI6thE5bXf.dLCxw/SqeSK7T06bCGLDg9vjhh28ltK', 'Colibri', 'Administrator', 'notifier.colibri@outlook.com', 'colibriadmin', 'IT', 'admin', 'admin'); 
+
+INSERT INTO employee(id, password, firstName, lastName, email, username, department, position, role)
+VALUES (2, '$2a$05$Ad7uHnUx5D4TI6thE5bXf.dLCxw/SqeSK7T06bCGLDg9vjhh28ltK', 'Colibri', 'Support', 'support.colibri@colibrimail.com', 'colibrisupport', 'IT', 'support', 'suport'); 
+
+INSERT INTO employee(id, password, firstName, lastName, email, username, department, position, role)
+VALUES (3, '$2a$05$Ad7uHnUx5D4TI6thE5bXf.dLCxw/SqeSK7T06bCGLDg9vjhh28ltK', 'Colibri', 'User', 'user01.colibri@colibrimail.com', 'user01', 'Finance', 'Accountant', 'user'); 

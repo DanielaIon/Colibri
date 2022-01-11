@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from "./logo.png"
 import React, { Component } from 'react';
+import { Navigate } from 'react-router-dom';
 const axios = require("axios");
 
 class Auth extends Component {
@@ -18,7 +19,8 @@ class Auth extends Component {
         position:"",
         role:"user"
       },
-      state:'login'
+      state:'login',
+      authentified: false
 
     };
 
@@ -32,7 +34,9 @@ class Auth extends Component {
     .then(res => {
       console.log(res.data)
       localStorage.setItem("tokenJWT",res.data)
-      this.props.history.push('/faq');
+      this.setState({
+        authentified: true
+      });
       }).catch(err=> {
         console.log(err);
       console.log("ooops eroare");
@@ -105,6 +109,10 @@ class Auth extends Component {
   render() {
     let buttons;
     let form;
+
+    if (this.state.authentified === true) {
+      return <Navigate to="/faq" replace state={this.state} />;
+    }
 
     if (this.state.state === "register"){
       buttons = (

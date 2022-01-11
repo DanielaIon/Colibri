@@ -40,13 +40,12 @@ const updateRoleByUsername = async (username) => {
 
 const authenticate = async (email, password) => {
     let result = await query(`SELECT id, password, role FROM employee u WHERE u.email = $1`, [email]);
-
     if (result.length == 0) {
         result = await query(`SELECT id, password, role FROM employee u WHERE u.username = $1`, [email]);
     }
 
     if (result.length === 0) {
-        throw new ServerError(`Utilizatorul  ${email} nu exista in sistem!`, 400);
+        throw new ServerError(`Utilizatorul ${email} nu exista in sistem!`, 400);
     }
     
     if (result[0].role === "unknown") {
@@ -57,6 +56,8 @@ const authenticate = async (email, password) => {
 
     // pas 1: verifica daca parola este buna (hint: functia compare)
     let checkPasswd = await compare(password, user.password);
+    console.log(password, user.password)
+
 
     // pas 1.1.: compare returneaza true sau false. Daca parola nu e buna, arunca eroare
     if (checkPasswd === false) {
