@@ -1,0 +1,111 @@
+version: "3.7"
+
+services:
+  #########################
+  # my services
+  #########################
+  colibri-api:
+    image: dana/colibri-api:latest
+    container_name: colibri-api
+    environment:
+      PORT: 3000
+      PGHOST: localhost
+      PGUSER: postgres
+      PGDATABASE: colibridb
+      PGPASSWORD: password
+      PGPORT: 54321
+      JWT_SECRET_KEY: myawesomeultrasecretkey
+      JWT_ISSUER: colibri-webapp
+      JWT_SUBJECT: 'Colibri Fast Token'
+      JWT_AUDIENCE: postman
+    ports:
+      - "33000:3000"
+    networks: 
+      - postgres_network
+      - frontend_backend
+      - rabbitmq_network
+    
+  colibri-webclient:
+    image: dana/colibri-webclient:latest
+    container_name: colibri-webclient
+    ports:
+      - "33001:3000"
+    networks: 
+      - frontend_backend
+  
+  colibri-mailer:
+    image: dana/colibri-mailer:latest
+    container_name: colibri-mailer
+    environment:
+      PGHOST: localhost
+      PGUSER: postgres
+      PGDATABASE: colibridb
+      PGPASSWORD: password
+      PGPORT: 54321
+    networks: 
+      - postgres_network
+      - rabbitmq_network
+
+  #########################
+  # 3rd party services
+  #########################
+  postgres:
+    image: postgres
+    container_name: colibri-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: colibridb
+      TZ: Europe/Bucharest
+      PGTZ: Europe/Bucharest
+    ports:
+      - "54321:5432"
+    volumes:
+      - colibri_pgdb:/var/lib/postgresql/colibri_data
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - postgres_network
+
+  broker-rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'colibri-rabbitmq'
+    ports:
+        - "56721:5672"
+        - "56722:15672"
+    networks:
+        - rabbitmq_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: colibri-pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    networks:
+      - postgres_network
+
+  portainer:
+    image: portainer/portainer-ce:2.0.0
+    command: -H unix:///var/run/docker.sock
+    restart: unless-stopped
+    ports:
+      - "10280:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  colibri_pgdb:
+  portainer_data:
+
+networks:
+  rabbitmq_network:
+    driver: bridge
+  postgres_network:
+    driver: bridge
+  frontend_backend:
+    driver: bridge
+
