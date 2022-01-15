@@ -15,7 +15,7 @@ const buildMessageQueue = require('./rabbitmq/index.js');
       }
     });
   
-    const RabbitMQ = await buildMessageQueue('amqp://localhost:56721', 'mail');
+    const RabbitMQ = await buildMessageQueue(process.env.RABBITMQHOST, 'mail');
 
     RabbitMQ.subscribe((msg) => {
       const mailDetails = JSON.parse(msg);

@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: colibri-postgres
+  labels:
+    tip: postgres
+spec:
+  containers:
+    - image: postgres
+      name: colibri-postgres
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: "1"
+        requests:
+          memory: 256Mi
+          cpu: "0.2"
+      env:
+      - name: POSTGRES_USER
+        value: postgres
+      - name: POSTGRES_PASSWORD
+        value: password
+      - name: POSTGRES_DB
+        value: colibridb
+      - name: TZ
+        value: Europe/Bucharest
+      - name: PGTZ
+        value: Europe/Bucharest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-clusterip-service
+spec:
+  selector:
+    tip: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi

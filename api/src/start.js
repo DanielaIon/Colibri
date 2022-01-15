@@ -10,7 +10,7 @@ const buildMessageQueue = require('./rabbitmq/index.js');
 (async ()=>{
     const app = express();
 
-    const RabbitMQ = await buildMessageQueue('amqp://localhost:56721', 'mail');
+    const RabbitMQ = await buildMessageQueue(process.env.RABBITMQHOST, 'mail');
     
     app.use(cors())
     app.use(helmet());

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: colibri-mailer
+  labels:
+    tip: mailer
+spec:
+  containers:
+    - image: daniellaion/colibri-mailer
+      name: colibri-mailer
+      resources:
+        limits:
+          memory: 512Mi
+          cpu: "1"
+        requests:
+          memory: 256Mi
+          cpu: "0.2"
+      env:
+      - name: RABBITMQHOST
+        value: amqp://rabbitmq-clusterip-service
+      - name: PGHOST
+        value: postgres-clusterip-service
+      - name: PGUSER
+        value: postgres
+      - name: PGDATABASE
+        value: colibridb
+      - name: PGPASSWORD
+        value: password
+      - name: PGPORT
+        value: '54321'

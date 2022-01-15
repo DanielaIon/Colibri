@@ -1,13 +1,9 @@
 cd api
-docker build . -t dana/colibri-api:latest
+docker build . -t daniellaion/colibri-api:latest
 cd ..
 
 cd mailer
-docker build . -t dana/colibri-mailer:latest
-cd ..
-
-cd webclient
-docker build . -t dana/colibri-webclient:latest
+docker build . -t daniellaion/colibri-mailer:latest
 cd ..
 
 echo All done!
