@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: test-sql
+  name: postgres-initdb-config
 data:
-  test.sql: |
+  initdb.sql: |
     CREATE TABLE IF NOT EXISTS  employee (
         id serial PRIMARY KEY,
         password varchar(255) NOT NULL,
