@@ -5,7 +5,7 @@ services:
   # my services
   #########################
   colibri-api:
-    image: dana/colibri-api:latest
+    image: daniellaion/colibri-api:latest
     container_name: colibri-api
     environment:
       PORT: 3000
@@ -26,7 +26,7 @@ services:
       - rabbitmq_network
     
   colibri-webclient:
-    image: dana/colibri-webclient:latest
+    image: daniellaion/colibri-webclient:latest
     container_name: colibri-webclient
     ports:
       - "33001:3000"
@@ -34,7 +34,7 @@ services:
       - frontend_backend
   
   colibri-mailer:
-    image: dana/colibri-mailer:latest
+    image: daniellaion/colibri-mailer:latest
     container_name: colibri-mailer
     environment:
       PGHOST: localhost

@@ -30,7 +30,7 @@ class User extends Component {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
 
-    axios.get(`http://localhost:3000/api/v1/employees/${id}`,authorization)
+    axios.get(`http://192.168.49.2:30474/api/v1/employees/${id}`,authorization)
       .then(res => {
         const user = res.data;
         this.setState({ user:user[0] });
@@ -44,7 +44,7 @@ class User extends Component {
     const authorization = {
         headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
       }
-    axios.get(`http://localhost:3000/api/v1/employees`,authorization)
+    axios.get(`http://192.168.49.2:30474/api/v1/employees`,authorization)
       .then(res => {
         const users = res.data;
         this.setState({ users});
@@ -57,7 +57,7 @@ class User extends Component {
     const authorization = {
         headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
       }
-    axios.delete(`http://localhost:3000/api/v1/employees/${id}`,authorization)
+    axios.delete(`http://192.168.49.2:30474/api/v1/employees/${id}`,authorization)
       .then(res => {
           console.log("Element sters");
           this.getUsers();
@@ -71,7 +71,7 @@ class User extends Component {
     const authorization = {
         headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
       }
-    axios.put(`http://localhost:3000/api/v1/employees/${id}`,{role},authorization)
+    axios.put(`http://192.168.49.2:30474/api/v1/employees/${id}`,{role},authorization)
       .then(res => {
           this.getUsers();
       }).catch(err=> {
@@ -84,7 +84,7 @@ class User extends Component {
     const authorization = {
         headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
       }
-    axios.put(`http://localhost:3000/api/v1/employees/${id}`,{role},authorization)
+    axios.put(`http://192.168.49.2:30474/api/v1/employees/${id}`,{role},authorization)
       .then(res => {
           this.getUsers();
       }).catch(err=> {

@@ -50,7 +50,7 @@ class BookResource extends Component {
     const config = {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
-    axios.get(`http://localhost:3000/api/v1/resources`,config)
+    axios.get(`http://192.168.49.2:30474/api/v1/resources`,config)
       .then(res => {
         const resources = res.data;
         this.setState({ resources});
@@ -64,7 +64,7 @@ class BookResource extends Component {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
 
-    axios.get(`http://localhost:3000/api/v1/employees/${id}`,authorization)
+    axios.get(`http://192.168.49.2:30474/api/v1/employees/${id}`,authorization)
       .then(res => {
         const user = res.data;
         this.setState({ user:user[0] });
@@ -80,7 +80,7 @@ class BookResource extends Component {
     const authorization = {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
-    axios.get(`http://localhost:3000/api/v1/bookings/resources/${id}/${day}`,authorization)
+    axios.get(`http://192.168.49.2:30474/api/v1/bookings/resources/${id}/${day}`,authorization)
         .then(res => {
             console.log("Element obtinut");
             this.setState({ bookings:res.data});
@@ -93,7 +93,7 @@ class BookResource extends Component {
     const authorization = {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
-    axios.delete(`http://localhost:3000/api/v1/bookings/${id}`,authorization)
+    axios.delete(`http://192.168.49.2:30474/api/v1/bookings/${id}`,authorization)
         .then(res => {
             console.log("Element sters");
         }).catch(err=> {
@@ -151,7 +151,7 @@ class BookResource extends Component {
       const authorization = {
         headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
       }
-      axios.post(`http://localhost:3000/api/v1/bookings/`,booking,authorization)
+      axios.post(`http://192.168.49.2:30474/api/v1/bookings/`,booking,authorization)
           .then(res => {
             alert(`You just made a booking!`);
             this.getBookings(this.state.resource,this.state.day);

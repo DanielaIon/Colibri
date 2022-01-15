@@ -12,21 +12,21 @@ const {
     validateFields
 } = require('../utils');
 
-const {sendYourMail} =  require('../security/email.js');
+const { sendYourMail } = require('../security/email.js');
 
 function initRoutes(context) {
     const router = express.Router();
 
-    router.post('/register', async (req, res, next) => {
+    router.post('/register', async(req, res, next) => {
         const {
             password,
-            firstName ,
-            lastName ,
-            email ,
-            username ,
-            department ,
-            position ,
-            role 
+            firstName,
+            lastName,
+            email,
+            username,
+            department,
+            position,
+            role
         } = req.body;
 
         // validare de campuri
@@ -54,28 +54,28 @@ function initRoutes(context) {
                 },
                 role: {
                     value: role,
-                    type:'ascii'
+                    type: 'ascii'
                 }
             };
 
             validateFields(fieldsToBeValidated);
 
             await UsersService.register(password,
-                                        firstName ,
-                                        lastName ,
-                                        email ,
-                                        username,
-                                        department ,
-                                        position ,
-                                        "unknown");
-            
-            let link = "http://localhost:3000/api/v1/employees/register/" + username
-            let content = "<a href="+link+">Click here to finnish register</a>"
+                firstName,
+                lastName,
+                email,
+                username,
+                department,
+                position,
+                "unknown");
+
+            let link = "http://192.168.49.2:30474/api/v1/employees/register/" + username
+            let content = "<a href=" + link + ">Click here to finnish register</a>"
             sendYourMail({
-                from:'colibri.mailservice@gmail.com',
-                to:email,
-                subject:'Register',
-                html:content
+                from: 'colibri.mailservice@gmail.com',
+                to: email,
+                subject: 'Register',
+                html: content
 
             });
             res.status(201).end();
@@ -86,7 +86,7 @@ function initRoutes(context) {
     });
 
     // ruta pt inregistrare
-    router.get('/register/:username', async (req, res, next) => {
+    router.get('/register/:username', async(req, res, next) => {
         const {
             username
         } = req.params;
@@ -95,14 +95,14 @@ function initRoutes(context) {
 
 
     // ruta pt verificarea datelor
-    router.get('/', authorizeAndExtractTokenAdminSuport, async (req, res, next) => {
+    router.get('/', authorizeAndExtractTokenAdminSuport, async(req, res, next) => {
         res.json(await UsersService.getEmployees());
     });
 
 
 
 
-    router.get('/:id', authorizeAndExtractToken, async (req, res, next) => {
+    router.get('/:id', authorizeAndExtractToken, async(req, res, next) => {
         const {
             id
         } = req.params;
@@ -110,7 +110,7 @@ function initRoutes(context) {
     });
 
     //delete user
-    router.delete('/:id', authorizeAndExtractTokenAdminSuport, async (req, res, next) => {
+    router.delete('/:id', authorizeAndExtractTokenAdminSuport, async(req, res, next) => {
         const {
             id
         } = req.params;
@@ -118,36 +118,37 @@ function initRoutes(context) {
     });
 
     //login
-    router.post('/login', async (req, res, next) => {
-    const {
-        email,
-        password
-    } = req.body;
+    router.post('/login', async(req, res, next) => {
+        const {
+            email,
+            password
+        } = req.body;
 
-    try {
-        const fieldsToBeValidated = {
-            email: {
-                value: email,
-                type: 'ascii'
-            },
-            password: {
-                value: password,
-                type: 'ascii'
-            }
-        };
+        try {
+            const fieldsToBeValidated = {
+                email: {
+                    value: email,
+                    type: 'ascii'
+                },
+                password: {
+                    value: password,
+                    type: 'ascii'
+                }
+            };
 
-        validateFields(fieldsToBeValidated);
+            validateFields(fieldsToBeValidated);
 
-        const token = await UsersService.authenticate(email, password);
+            const token = await UsersService.authenticate(email, password);
 
-        res.status(200).json(token);
-    } catch (err) {
-        // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
-        next(err);
-    }});
+            res.status(200).json(token);
+        } catch (err) {
+            // daca primesc eroare, pasez eroarea mai departe la handler-ul de errori declarat ca middleware in start.js 
+            next(err);
+        }
+    });
 
 
-    router.put('/:id', authorizeAndExtractTokenAdminSuport, async (req, res, next) => {
+    router.put('/:id', authorizeAndExtractTokenAdminSuport, async(req, res, next) => {
         const {
             id
         } = req.params;
@@ -176,7 +177,7 @@ function initRoutes(context) {
             next(err);
         }
     });
-    
+
     return router;
 }
 

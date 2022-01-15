@@ -15,7 +15,7 @@ getUser(id) {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
 
-  axios.get(`http://localhost:3000/api/v1/employees/${id}`,config)
+  axios.get(`http://192.168.49.2:30474/api/v1/employees/${id}`,config)
     .then(res => {
       const person = res.data;
       console.log("niiiice")

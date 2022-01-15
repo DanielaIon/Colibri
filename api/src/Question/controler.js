@@ -63,8 +63,9 @@ function initRoutes(context) {
 
             let text = "<p>You asked:  " + question + "<br/>"+ "We answer:  " + answer +"</p>"
             RabbitMQ.publish(JSON.stringify({
-                to:emailemployee,
-                subject:'Question Answered',
+                id: parseInt(id),
+                to: emailemployee,
+                subject: 'Question Answered',
                 text
             }));
 

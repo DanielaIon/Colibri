@@ -28,7 +28,7 @@ getUser(id) {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
 
-  axios.get(`http://localhost:3000/api/v1/employees/${id}`,authorization)
+  axios.get(`http://192.168.49.2:30474/api/v1/employees/${id}`,authorization)
     .then(res => {
       const user = res.data;
       this.setState({ user:user[0] });
@@ -44,7 +44,7 @@ getUser(id) {
     const config = {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
-    axios.get(`http://localhost:3000/api/v1/resources`,config)
+    axios.get(`http://192.168.49.2:30474/api/v1/resources`,config)
       .then(res => {
         const resources = res.data;
         this.setState({ resources});

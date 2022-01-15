@@ -30,7 +30,7 @@ class Auth extends Component {
 
   
   login = (event) => {
-    axios.post(`http://localhost:3000/api/v1/employees/login`,this.state.user)
+    axios.post(`http://192.168.49.2:30474/api/v1/employees/login`,this.state.user)
     .then(res => {
       console.log(res.data)
       localStorage.setItem("tokenJWT",res.data)
@@ -49,7 +49,7 @@ class Auth extends Component {
     myuser.role = "user"
     this.setState({user:myuser})
 
-    axios.post(`http://localhost:3000/api/v1/employees/register`,this.state.user)
+    axios.post(`http://192.168.49.2:30474/api/v1/employees/register`,this.state.user)
     .then(res => {
       this.props.history.push('/');
       }).catch(err=> {

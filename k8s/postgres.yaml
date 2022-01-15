@@ -15,18 +15,124 @@ spec:
         requests:
           memory: 256Mi
           cpu: "0.2"
+      volumeMounts:
+        - name: postgres-initdb
+          mountPath: /docker-entrypoint-initdb.d
       env:
-      - name: POSTGRES_USER
-        value: postgres
-      - name: POSTGRES_PASSWORD
-        value: password
-      - name: POSTGRES_DB
-        value: colibridb
-      - name: TZ
-        value: Europe/Bucharest
-      - name: PGTZ
-        value: Europe/Bucharest
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: POSTGRES_DB
+          value: colibridb
+        - name: TZ
+          value: Europe/Bucharest
+        - name: PGTZ
+          value: Europe/Bucharest
+  volumes:
+    - name: postgres-initdb
+      configMap:
+        name: postgres-initdb-config
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb-config
+data:
+  initdb.sql: |
+    CREATE TABLE IF NOT EXISTS  employee (
+        id serial PRIMARY KEY,
+        password varchar(255) NOT NULL,
+        firstName varchar(255),
+        lastName varchar(255),
+        email varchar(255) NOT NULL UNIQUE,
+        username varchar(255) NOT NULL UNIQUE,
+        department varchar(255),
+        position varchar(255),
+        role varchar(255)
+    );
+
+    CREATE TABLE IF NOT EXISTS  resource (
+        id serial PRIMARY KEY,
+        name varchar(255) NOT NULL UNIQUE,
+        details TEXT
+    ); 
+
+    CREATE TABLE IF NOT EXISTS  question(
+        id serial PRIMARY KEY,
+        emailemployee TEXT,
+        question TEXT,
+        answer TEXT,
+        visible  varchar(255),
+        notified BOOLEAN
+    ); 
+
+    CREATE TABLE IF NOT EXISTS  booking(
+        id serial PRIMARY KEY,
+        idResource integer REFERENCES resource(id),
+        idEmployee integer REFERENCES employee(id),
+        day DATE,
+        startHour TIME,
+        endHour TIME,
+        details TEXT 
+    );
+
+    INSERT INTO employee(id, password, firstName, lastName, email, username, department, position, role)
+    VALUES (1, '$2a$05$Ad7uHnUx5D4TI6thE5bXf.dLCxw/SqeSK7T06bCGLDg9vjhh28ltK', 'Colibri', 'Administrator', 'notifier.colibri@outlook.com', 'colibriadmin', 'IT', 'admin', 'admin'); 
+
+    INSERT INTO employee(id, password, firstName, lastName, email, username, department, position, role)
+    VALUES (2, '$2a$05$Ad7uHnUx5D4TI6thE5bXf.dLCxw/SqeSK7T06bCGLDg9vjhh28ltK', 'Colibri', 'Support', 'support.colibri@colibrimail.com', 'colibrisupport', 'IT', 'support', 'suport'); 
+
+    INSERT INTO employee(id, password, firstName, lastName, email, username, department, position, role)
+    VALUES (3, '$2a$05$Ad7uHnUx5D4TI6thE5bXf.dLCxw/SqeSK7T06bCGLDg9vjhh28ltK', 'Colibri', 'User', 'user01.colibri@colibrimail.com', 'user01', 'Finance', 'Accountant', 'user'); 
+
+---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: postgres-deployment
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       component: postgres
+#   template:
+#     metadata:
+#       labels:
+#         component: postgres
+#     spec:
+#       volumes:
+#         - name: postgres-storage
+#           persistentVolumeClaim:
+#             claimName: postgres-storage
+#       containers:
+#         - name: postgres
+#           image: postgres
+#           resources:
+#             limits:
+#               memory: 512Mi
+#               cpu: "1"
+#             requests:
+#               memory: 256Mi
+#               cpu: "0.2"
+#           ports:
+#             - containerPort: 5432
+#           env:
+#             - name: POSTGRES_USER
+#               value: postgres
+#             - name: POSTGRES_PASSWORD
+#               value: password
+#             - name: POSTGRES_DB
+#               value: colibridb
+#             - name: TZ
+#               value: Europe/Bucharest
+#             - name: PGTZ
+#               value: Europe/Bucharest
+#           volumeMounts:
+#             - name: postgres-pvc
+#               mountPath: /var/lib/postgresql/data
+#               subPath: postgres
+# ---
 apiVersion: v1
 kind: Service
 metadata:
@@ -48,4 +154,4 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 2Gi
+      storage: 5Gi

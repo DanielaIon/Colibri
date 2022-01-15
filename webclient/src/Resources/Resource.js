@@ -33,7 +33,7 @@ getUser(id) {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
 
-  axios.get(`http://localhost:3000/api/v1/employees/${id}`,authorization)
+  axios.get(`http://192.168.49.2:30474/api/v1/employees/${id}`,authorization)
     .then(res => {
       const user = res.data;
       this.setState({ user:user[0] });
@@ -48,7 +48,7 @@ add = (event) => {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
 
-  axios.post(`http://localhost:3000/api/v1/resources`,this.state.resource,config)
+  axios.post(`http://192.168.49.2:30474/api/v1/resources`,this.state.resource,config)
   .then(res => {
     this.getResources()
     }).catch(err=> {
@@ -76,7 +76,7 @@ add = (event) => {
     const config = {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
-    axios.get(`http://localhost:3000/api/v1/resources`,config)
+    axios.get(`http://192.168.49.2:30474/api/v1/resources`,config)
       .then(res => {
         const resources = res.data;
         this.setState({ resources});
@@ -89,7 +89,7 @@ add = (event) => {
   const config = {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
-    axios.delete(`http://localhost:3000/api/v1/resources/${id}`,config)
+    axios.delete(`http://192.168.49.2:30474/api/v1/resources/${id}`,config)
       .then(res => {
           console.log("Element sters");
           this.getResources();

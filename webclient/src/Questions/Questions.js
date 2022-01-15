@@ -33,7 +33,7 @@ getUser(id) {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
 
-  axios.get(`http://localhost:3000/api/v1/employees/${id}`,authorization)
+  axios.get(`http://192.168.49.2:30474/api/v1/employees/${id}`,authorization)
     .then(res => {
       const user = res.data;
       this.setState({ user:user[0] });
@@ -49,7 +49,7 @@ add = (event) => {
   }
 
   // console.log(this.state.user.email+"---"+this.state.question)
-  axios.post(`http://localhost:3000/api/v1/questions`,this.state.question, config)
+  axios.post(`http://192.168.49.2:30474/api/v1/questions`,this.state.question, config)
   .then(res => {
     this.getQuestions()
     // this.props.history.push('/mybookings');
@@ -84,7 +84,7 @@ updateAnswer= (event)=>{
   const config = {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
-    axios.delete(`http://localhost:3000/api/v1/questions/${id}`,config)
+    axios.delete(`http://192.168.49.2:30474/api/v1/questions/${id}`,config)
       .then(res => {
           console.log("Element sters");
           this.getQuestions();
@@ -97,7 +97,7 @@ updateQuestion(question) {
   const config = {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
-    axios.put(`http://localhost:3000/api/v1/questions/${question.id}`,{answer:this.state.question.answer, emailemployee:question.emailemployee, question:question.question},config)
+    axios.put(`http://192.168.49.2:30474/api/v1/questions/${question.id}`,{answer:this.state.question.answer, emailemployee:question.emailemployee, question:question.question},config)
       .then(res => {
           console.log("Element updatat");
           this.getQuestions();
@@ -110,7 +110,7 @@ getQuestions() {
   const config = {
     headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
   }
-  axios.get(`http://localhost:3000/api/v1/questions`,config)
+  axios.get(`http://192.168.49.2:30474/api/v1/questions`,config)
     .then(res => {
       const questions = res.data;
       this.setState({ questions});

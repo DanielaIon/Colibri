@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: colibri-pgadmin
   labels:
-    tip: pgadmin
+    app: pgadmin
 spec:
   containers:
     - image: dpage/pgadmin4
@@ -27,9 +27,7 @@ metadata:
   name: pgadmin-nodeport-service
 spec:
   selector:
-    run: pgadmin
+    app: pgadmin
   ports:
-  - port: 5050
-    protocol: TCP
-    targetPort: 80
+    - port: 80
   type: NodePort

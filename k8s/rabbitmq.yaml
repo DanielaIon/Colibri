@@ -24,10 +24,20 @@ spec:
   selector:
     tip: rabbitmq
   ports:
-    - port: 56721
-      name: amqp
+    - name: amqp
+      port: 5672
       targetPort: 5672
-    - port: 56722
-      name: ui
-      targetPort: 15672
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-nodeport-service
+spec:
+  selector:
+    tip: rabbitmq
+  ports:
+    - name: ui
+      port: 56722
+      targetPort: 15672
+  type: NodePort

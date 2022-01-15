@@ -37,7 +37,7 @@ class MyBookings extends Component {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
 
-    axios.get(`http://localhost:3000/api/v1/employees/${id}`,authorization)
+    axios.get(`http://192.168.49.2:30474/api/v1/employees/${id}`,authorization)
       .then(res => {
         const user = res.data;
         this.setState({ user:user[0] });
@@ -55,7 +55,7 @@ class MyBookings extends Component {
     const authorization = {
       headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
     }
-    axios.get(`http://localhost:3000/api/v1/bookings/${id}`,authorization)
+    axios.get(`http://192.168.49.2:30474/api/v1/bookings/${id}`,authorization)
         .then(res => {
             console.log("Element obtinut");
             this.setState({ bookings:res.data});
@@ -68,7 +68,7 @@ class MyBookings extends Component {
       const authorization = {
         headers: {Authorization: `Bearer ${localStorage.getItem("tokenJWT")}`}
       }
-      axios.delete(`http://localhost:3000/api/v1/bookings/${id}`,authorization)
+      axios.delete(`http://192.168.49.2:30474/api/v1/bookings/${id}`,authorization)
           .then(res => {
               console.log("Element sters");
               this.getBookings()
