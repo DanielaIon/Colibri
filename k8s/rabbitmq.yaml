@@ -25,7 +25,9 @@ spec:
     tip: rabbitmq
   ports:
     - port: 56721
+      name: amqp
       targetPort: 5672
     - port: 56722
+      name: ui
       targetPort: 15672
   type: ClusterIP
